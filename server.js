@@ -14,7 +14,13 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://her-sync-frontend-2to7jv4bm-elizabeths-projects-87ae47fe.vercel.app/"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
@@ -27,18 +33,24 @@ app.use("/api/profile", require("./routes/profile"));
 
 
 
-const cors = require("cors");
 
-app.use(cors({
-  origin: "https://your-frontend-url.vercel.app",
-  credentials: true
-}));
-
+// app.use(cors({
+//   origin: "https://your-frontend-url.vercel.app",
+//   credentials: true
+// }));
 
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+console.log("MONGO_URI:", process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI,{
+  tls: true,
+  tlsAllowInvalidCertificates: true,
+})
+
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB Connection Error:");
+    console.error(err);
+  });
 
 app.get("/", (req, res) => {
   res.send("API Running...");
