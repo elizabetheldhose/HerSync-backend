@@ -10,7 +10,8 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://her-sync-frontend-2to7jv4bm-elizabeths-projects-87ae47fe.vercel.app"
+    "https://her-sync-frontend-2to7jv4bm-elizabeths-projects-87ae47fe.vercel.app",
+    "https://her-sync-frontend.vercel.app/"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
