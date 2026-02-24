@@ -14,7 +14,7 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
@@ -30,7 +30,7 @@ app.use("/api/profile", require("./routes/profile"));
 const cors = require("cors");
 
 app.use(cors({
-  origin: "https://your-frontend-url.vercel.app",
+  origin: "https://her-sync-frontend-2to7jv4bm-elizabeths-projects-87ae47fe.vercel.app",
   credentials: true
 }));
 
