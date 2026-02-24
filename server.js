@@ -8,12 +8,18 @@ const app = express();
 
 // ✅ CORS FIRST
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://her-sync-frontend-2to7jv4bm-elizabeths-projects-87ae47fe.vercel.app",
-    "https://her-sync-frontend.vercel.app/"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (
+      origin.includes("vercel.app") ||
+      origin.includes("localhost")
+    ) {
+      return callback(null, true);
+    }
+
+    callback(new Error("Not allowed by CORS"));
+  },
   credentials: true
 }));
 
