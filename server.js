@@ -26,9 +26,6 @@ app.use("/api/profile", require("./routes/profile"));
 
 
 
-
-const cors = require("cors");
-
 app.use(cors({
   origin: "https://her-sync-frontend-2to7jv4bm-elizabeths-projects-87ae47fe.vercel.app",
   credentials: true
