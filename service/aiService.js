@@ -1,11 +1,13 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const genAI = new GoogleGenerativeAI("AIzaSyDz6na52TVlOVfHQmiy4XhQJg0g5IDLo3c");
+  // ✅ FIX 1: API key from environment variable — never hardcode in source
+  // ✅ FIX 2: Correct model name — "gemini-3-flash-preview" does not exist
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 async function generateHealthInsight(data) {
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview", // fast + good for summaries
+      model: "gemini-1.5-flash", // ✅ valid, fast, cost-efficient model
     });
 
     const prompt = `
@@ -16,6 +18,8 @@ Analyze this health data and provide:
 - Mood trend
 - Sleep insight
 - General advice
+
+Keep your response concise (3-4 sentences max). Be warm, supportive, and specific to the data.
 
 Health Data:
 ${JSON.stringify(data)}
